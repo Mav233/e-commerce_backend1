@@ -8,7 +8,8 @@
     <p>{{product.description}}</p>
     <p class="price">$ {{product.price}}</p>
 
-    <form action="/api/carts/add/{{product._id}}" method="POST">
+    <!-- AGREGAR AL CARRITO -->
+    <form action="/carts/{{cartId}}/product/{{product._id}}" method="POST">
         <button type="submit" class="btn-primary">
             🛒 Agregar al carrito
         </button>
@@ -20,3 +21,6 @@
 
 <a href="/products" class="btn-primary">
     ← Volver al listado de productos
+</a>
+
+</div>

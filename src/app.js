@@ -8,6 +8,7 @@ import { connectMongo } from "./config/mongo.js";
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
+import Handlebars from "handlebars";
 
 const app = express();
 
@@ -18,6 +19,7 @@ connectMongo();
 app.engine("handlebars", handlebars.engine());
 app.set("view engine", "handlebars");
 app.set("views", path.join(rootDir, "views"));
+Handlebars.registerHelper("multiply", (a, b) => a * b);
 
 /* MIDDLEWARES */
 app.use(express.json());

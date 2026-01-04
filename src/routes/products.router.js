@@ -61,7 +61,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-/*  POST /api/products */
+/* POST */
 
 router.post("/", uploader.single("thumbnail"), async (req, res) => {
     try {
@@ -78,18 +78,13 @@ router.post("/", uploader.single("thumbnail"), async (req, res) => {
             thumbnails: req.file ? [`/uploads/${req.file.filename}`] : []
         };
 
-        const product = await ProductModel.create(newProduct);
+        await ProductModel.create(newProduct);
 
-        res.status(201).json({
-            status: "success",
-            payload: product
-        });
+        res.redirect("/products");
 
     } catch (error) {
-        res.status(500).json({
-            status: "error",
-            error: error.message
-        });
+        console.error(error);
+        res.status(500).send("Error al crear el producto");
     }
 });
 

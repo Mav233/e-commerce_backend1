@@ -1,21 +1,33 @@
-<div class="cart-container">
+<div class="cart-item">
 
-    <h1>🛒 Carrito de compras</h1>
+    {{#if this.product.thumbnails.length}}
+    <img src="{{this.product.thumbnails.[0]}}" alt="{{this.product.title}}">
+    {{/if}}
 
-    {{#each products}}
-    <div class="cart-item">
+    <div class="cart-info">
+        <h3>{{this.product.title}}</h3>
+        <p>$ {{this.product.price}}</p>
 
-        {{#if this.product.thumbnails.length}}
-        <img src="{{this.product.thumbnails.[0]}}" class="product-img">
-        {{/if}}
+        <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}" method="POST">
+            <input type="hidden" name="quantity" value="{{this.quantity}}">
+            <div class="cart-qty-controls">
+                <button formaction="/api/carts/{{../cart._id}}/products/{{this.product._id}}" formmethod="POST"
+                    name="quantity" value="{{this.quantity}}">
+                    ➖
+                </button>
 
-        <div>
-            <h3>{{this.product.title}}</h3>
-            <p>$ {{this.product.price}}</p>
-            <p>Cantidad: {{this.quantity}}</p>
-        </div>
+                <span>{{this.quantity}}</span>
 
+                <button formaction="/api/carts/{{../cart._id}}/products/{{this.product._id}}" formmethod="POST"
+                    name="quantity" value="{{this.quantity}}">
+                    ➕
+                </button>
+            </div>
+        </form>
     </div>
-    {{/each}}
+
+    <form action="/api/carts/{{../cart._id}}/products/{{this.product._id}}/delete" method="POST">
+        <button class="btn-remove">Eliminar</button>
+    </form>
 
 </div>
